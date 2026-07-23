@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mustafakulov Trading Academy</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #0f172a;
+            color: #f8fafc;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 2px solid #1e293b;
+            margin-bottom: 30px;
+        }
+        header h1 {
+            color: #38bdf8;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        header p {
+            color: #94a3b8;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #38bdf8;
+        }
+        .card-number {
+            font-size: 0.85rem;
+            color: #38bdf8;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #f1f5f9;
+        }
+        .card p {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Mustafakulov Trading Academy</h1>
+        <p>Платформа для трейдеров и инвесторов — 15 ключевых инструментов</p>
+    </header>
+
+    <div class="grid-container">
+        <div class="card">
+            <div class="card-number">Функция 01</div>
+            <h3>Аналитика рынка</h3>
+            <p>Обзоры ключевых финансовых рынков, графики и технический анализ в реальном времени.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 02</div>
+            <h3>Торговые сигналы</h3>
+            <p>Точки входа и выхода по валютным парам, металлам и индексам с удержанием рисков.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 03</div>
+            <h3>Калькулятор рисков</h3>
+            <p>Расчет размера лота, уровня Stop Loss и Take Profit на основе вашего депозита.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 04</div>
+            <h3>Экономический календарь</h3>
+            <p>Отслеживание важных макроэкономических новостей и их влияния на волатильность.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 05</div>
+            <h3>Обучающие материалы</h3>
+            <p>Курсы, видеоуроки и статьи по трейдингу от новичка до профессионала.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 06</div>
+            <h3>Демо-симулятор</h3>
+            <p>Тестирование торговых стратегий на исторических данных без риска потерь.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 07</div>
+            <h3>Дневник трейдера</h3>
+            <p>Учет сделок, фиксация ошибок и подробная статистика эффективности стратегий.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 08</div>
+            <h3>Анализ криптовалют</h3>
+            <p>Мониторинг основных криптовалютных пар, объемов торгов и уровня доминирования.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 09</div>
+            <h3>Новости и тренды</h3>
+            <p>Оперативная сводка рыночных новостей и разбор их влияния на инвесторов.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 10</div>
+            <h3>Форекс аналитика</h3>
+            <p>Детальный разбор основных и кросс-курсов валютных пар.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 11</div>
+            <h3>Персональные консультации</h3>
+            <p>Запись на разбор сделок и консультации с экспертами академии.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 12</div>
+            <h3>Глобальные рыночные события</h3>
+            <p>Анализ мировых экономических факторов и их влияния на портфель инвестора.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 13</div>
+            <h3>Торговля золотом (XAU/USD)</h3>
+            <p>Специализированная аналитика и стратегии работы с драгоценными металлами.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 14</div>
+            <h3>Паттерны Price Action</h3>
+            <p>Определение ключевых свечных моделей и уровней поддержки/сопротивления без индикаторов.</p>
+        </div>
+        <div class="card">
+            <div class="card-number">Функция 15</div>
+            <h3>Индикатор RSI</h3>
+            <p>Оценка зон перекупленности и перепроданности рынков для поиска точек разворота.</p>
+        </div>
+    </div>
+
+</body>
+</html>
