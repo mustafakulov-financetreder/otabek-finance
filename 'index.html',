@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Otabek Finance - AI Platform</title>
+    <style>
+        :root {
+            --bg-color: #0b0e14;
+            --card-bg: #151a23;
+            --accent-color: #2563eb;
+            --gold-color: #f59e0b;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: #1f2937;
+            --success-color: #10b981;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-main); padding: 1rem; }
+
+        header {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo { font-size: 1.3rem; font-weight: bold; color: var(--gold-color); }
+        .badge { background: var(--success-color); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: bold; }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 900px) { .layout { grid-template-columns: 1fr; } }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--gold-color);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Чат */
+        .chat-box {
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            height: 320px;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .msg { padding: 0.75rem 1rem; border-radius: 8px; font-size: 0.95rem; max-width: 85%; }
+        .msg.ai { background: #1f2937; border-left: 3px solid var(--gold-color); align-self: flex-start; }
+        .msg.user { background: var(--accent-color); align-self: flex-end; }
+
+        .input-group { display: flex; gap: 0.5rem; }
+        input[type="text"] {
+            flex: 1; padding: 0.75rem; border-radius: 6px;
+            border: 1px solid var(--border-color); background: #0d1117; color: white;
+        }
+
+        .btn {
+            padding: 0.75rem 1.2rem; border-radius: 6px; border: none;
+            background: var(--accent-color); color: white; font-weight: bold; cursor: pointer;
+        }
+        .btn-gold { background: var(--gold-color); color: #000; }
+        .btn-gold:hover { background: #d97706; }
+
+        /* Тарифы */
+        .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+        .plan-card {
+            background: #0d1117; border: 1px solid var(--border-color);
+            border-radius: 10px; padding: 1.2rem; text-align: center;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .plan-card.main { border-color: var(--gold-color); box-shadow: 0 0 12px rgba(245, 158, 11, 0.15); }
+        .price { font-size: 1.4rem; font-weight: bold; margin: 0.5rem 0; color: white; }
+
+        /* Пластиковая карта */
+        .bank-card {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            border: 1px solid var(--gold-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-top: 0.5rem;
+        }
+        .card-num { font-family: monospace; font-size: 1.25rem; color: var(--gold-color); letter-spacing: 2px; margin: 0.5rem 0; }
+        .card-owner { font-weight: bold; color: white; font-size: 0.95rem; }
+
+        /* Модальное окно */
+        .modal-bg {
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
+            background: rgba(0,0,0,0.8); justify-content: center; align-items: center; z-index: 99;
+        }
+        .modal-body { background: var(--card-bg); padding: 1.5rem; border-radius: 12px; max-width: 400px; width: 90%; border: 1px solid var(--border-color); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">📈 Мустафакулов Отабек | Otabek Finance</div>
+        <span class="badge">Платный Доступ Активен</span>
+    </header>
+
+    <div class="layout">
+        <!-- Левая колонка -->
+        <div>
+            <!-- Чат ИИ -->
+            <div class="card">
+                <div class="card-title">
+                    <span>🤖 AI Торговый Помощник</span>
+                    <span style="font-size:0.85rem; color:var(--gold-color);" id="timer">Лимит: 03:48:00</span>
+                </div>
+                <div class="chat-box" id="chat">
+                    <div class="msg ai">Здравствуйте! Я ваш ИИ-помощник. Задайте вопрос по рынку или сигналам.</div>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="userInput" placeholder="Введите ваш вопрос..." onkeydown="if(event.key==='Enter') sendMsg()">
+                    <button class="btn" onclick="sendMsg()">Отправить</button>
+                </div>
+            </div>
+
+            <!-- Тарифные планы -->
+            <div class="card">
+                <div class="card-title">💳 Доступ и Пополнение Лимита</div>
+                <div class="plans">
+                    
+                    <div class="plan-card main">
+                        <h3>Годовая Подписка</h3>
+                        <div class="price">$149.90 <span style="font-size:0.75rem; color:var(--text-muted);">/ год</span></div>
+                        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Ежедневный лимит: 3ч 48мин</p>
+                        <button class="btn btn-gold" onclick="payModal('Годовая Подписка ($149.90)', 149.90, 228)">Оформить на год</button>
+                    </div>
+
+                    <div class="plan-card">
+                        <h3>Пакет +3ч 48мин</h3>
+                        <div class="price">$2.30</div>
+                        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Разовое добавление 228 минут</p>
+                        <button class="btn" onclick="payModal('Пакет +3ч 48мин ($2.30)', 2.30, 228)">Купить</button>
+                    </div>
+
+                    <div class="plan-card">
+                        <h3>Пакет +1 Час</h3>
+                        <div class="price">$1.10</div>
+                        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:1rem;">Разовое добавление 60 минут</p>
+                        <button class="btn" onclick="payModal('Пакет +1 Час ($1.10)', 1.10, 60)">Купить</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Правая колонка: Реквизиты -->
+        <div>
+            <div class="card">
+                <div class="card-title">💳 Реквизиты для Оплаты</div>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Оплата производится переводом на карту:</p>
+                
+                <div class="bank-card">
+                    <div style="font-size:0.75rem; color:var(--text-muted);">Пластиковая карта</div>
+                    <div class="card-num">4073 4200 4912 7628</div>
+                    <div class="card-owner">Мустафакулов Отабек</div>
+                </div>
+
+                <button class="btn btn-gold" style="width:100%; margin-top:1rem;" onclick="copyCard()">Скопировать Номер Карты</button>
+            </div>
+
+            <div class="card">
+                <div class="card-title">📊 Статус подписки</div>
+                <p style="font-size:0.9rem; margin-bottom:0.5rem;">Остаток времени: <b id="minLeft">228</b> минут</p>
+                <p style="font-size:0.9rem;">План: <b style="color:var(--gold-color);">Годовой ($149.90/год)</b></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно оплаты -->
+    <div class="modal-bg" id="modal">
+        <div class="modal-body">
+            <h3 style="color:var(--gold-color); margin-bottom:0.8rem;" id="mTitle">Оплата</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">
+                Переведите сумму на карту <b>4073 4200 4912 7628</b> (Мустафакулов Отабек) для авто-активации.
+            </p>
+            <div style="font-size:1.1rem; font-weight:bold; margin-bottom:1rem;" id="mPrice"></div>
+            <button class="btn btn-gold" style="width:100%; margin-bottom:0.5rem;" onclick="confirmPay()">Подтвердить Оплату</button>
+            <button class="btn" style="width:100%; background:#374151;" onclick="closeModal()">Отмена</button>
+        </div>
+    </div>
+
+    <script>
+        let seconds = 3 * 3600 + 48 * 60;
+        let addMinutes = 0;
+        let timerId = null;
+
+        function updateTimer() {
+            let h = Math.floor(seconds / 3600);
+            let m = Math.floor((seconds % 3600) / 60);
+            let s = seconds % 60;
+            document.getElementById('timer').innerText = `Лимит: ${h<10?'0'+h:h}:${m<10?'0'+m:m}:${s<10?'0'+s:s}`;
+            document.getElementById('minLeft').innerText = Math.floor(seconds / 60);
+        }
+
+        function startTimer() {
+            if (timerId) return;
+            timerId = setInterval(() => {
+                if (seconds > 0) { seconds--; updateTimer(); }
+                else { clearInterval(timerId); timerId = null; alert("Лимит времени исчерпан!"); }
+            }, 1000);
+        }
+
+        function sendMsg() {
+            let input = document.getElementById('userInput');
+            let txt = input.value.trim();
+            if (!txt) return;
+
+            let chat = document.getElementById('chat');
+            chat.innerHTML += `<div class="msg user">${txt}</div>`;
+            input.value = '';
+            chat.scrollTop = chat.scrollHeight;
+
+            startTimer();
+
+            setTimeout(() => {
+                chat.innerHTML += `<div class="msg ai">Запрос принят: "${txt}". Позиция находится под контролем риска.</div>`;
+                chat.scrollTop = chat.scrollHeight;
+            }, 800);
+        }
+
+        function copyCard() {
+            navigator.clipboard.writeText("4073420049127628");
+            alert("Номер карты скопирован!");
+        }
+
+        function payModal(title, price, mins) {
+            document.getElementById('mTitle').innerText = title;
+            document.getElementById('mPrice').innerText = "К оплате: $" + price;
+            addMinutes = mins;
+            document.getElementById('modal').style.display = 'flex';
+        }
+
+        function closeModal() { document.getElementById('modal').style.display = 'none'; }
+
+        function confirmPay() {
+            seconds += addMinutes * 60;
+            updateTimer();
+            closeModal();
+            alert("Оплата успешно принята!");
+            startTimer();
+        }
+
+        updateTimer();
+    </script>
+</body>
+</html>
